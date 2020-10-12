@@ -13,7 +13,9 @@ imdbid LIKE '%42' and movieid > 100 and movieid < 1000;
 
 --Сложные выборки: JOIN
 -- выбрать из таблицы links все imdbId, которым ставили рейтинг 5
-SELECT imdbid FROM movie.links
+SELECT 
+DISTINCT(imdbid) 
+FROM movie.links
 INNER JOIN movie.ratings
 ON links.movieid=ratings.movieid
 WHERE rating = 5
@@ -23,7 +25,7 @@ LIMIT 10;
 -- Аггрегация данных: базовые статистики
 -- Посчитать число фильмов без оценок
 SELECT
-COUNT(links.movieid) as count
+COUNT(DISTINCT(links.movieid)) as count
 FROM movie.links
 LEFT JOIN movie.ratings
 ON links.movieid=ratings.movieid
